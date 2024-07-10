@@ -1,1 +1,1 @@
-Reccomendation = Struct.new(:job_seeker_id, :job_id, :matching_skills_count)
+Reccomendation = Struct.new(:jobseeker_id, :jobseeker_name, :job_id, :job_title, :matching_skill_count, :matching_skill_percent)
