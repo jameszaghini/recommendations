@@ -1,5 +1,4 @@
 class ImportService
-
   def self.import_job_seekers(file_path)
     job_seekers = []
     CSV.foreach(ROOT + file_path, headers: true) do |row|
@@ -21,5 +20,4 @@ class ImportService
     end
     jobs
   end
-
 end
