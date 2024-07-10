@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ImportService
   def self.import_job_seekers(file_path)
     job_seekers = []
