@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'json'
-
 require_relative 'import_service'
 require_relative 'recommendation_exporter'
 require_relative 'recommendation_generator'
