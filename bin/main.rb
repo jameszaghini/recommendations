@@ -3,7 +3,4 @@
 
 require_relative '../lib/job_recommendation_app'
 
-require 'pathname'
-ROOT = Pathname.pwd
-
 JobRecommendationApp.run

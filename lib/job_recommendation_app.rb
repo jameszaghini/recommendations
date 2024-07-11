@@ -2,8 +2,6 @@
 
 require 'json'
 
-require_relative 'models/job'
-require_relative 'models/job_seeker'
 require_relative 'import_service'
 require_relative 'recommendation_exporter'
 require_relative 'recommendation_generator'

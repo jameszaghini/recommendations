@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
+require_relative 'models/job_seeker'
+require_relative 'models/job'
+require 'pathname'
+
 class ImportService
-  def self.import_job_seekers(file_path: 'data/jobseekers.csv')
+  def self.import_job_seekers(file_path: "#{Pathname.pwd}/data/jobseekers.csv")
     job_seekers = []
-    CSV.foreach(ROOT + file_path, headers: true) do |row|
+    CSV.foreach(file_path, headers: true) do |row|
       id = row['id']
       name = row['name']
       skills = row['skills'].split(', ').map(&:strip)
@@ -12,7 +16,7 @@ class ImportService
     job_seekers
   end
 
-  def self.import_jobs(file_path: 'data/jobs.csv')
+  def self.import_jobs(file_path: "#{Pathname.pwd}/data/jobs.csv")
     jobs = []
     CSV.foreach(file_path, headers: true) do |row|
       id = row['id']
