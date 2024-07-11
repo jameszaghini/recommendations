@@ -8,6 +8,7 @@ require_relative 'models/job_seeker'
 require_relative 'models/recommendation'
 require_relative 'import_service'
 
+# Finds the recommended jobs for a jobseeker
 class JobRecommendationApp
   attr_reader :jobs, :job_seekers, :recommendations
 
@@ -28,14 +29,26 @@ class JobRecommendationApp
   def find_matches
     job_seekers.each do |jobseeker|
       jobs.each do |job|
-        matching_skills = jobseeker.skills & job.required_skills
+        matching_skills = match_skills_for(jobseeker:, job:)
 
-        next unless matching_skills.any?
+        next if matching_skills.none?
 
-        recommendations << Recommendation.new(jobseeker.id, jobseeker.name, job.id, job.title, matching_skills.count,
-                                              matching_skills.count)
+        add_recommendation(jobseeker:, job:, matching_skills:)
       end
     end
+  end
+
+  def match_skills_for(jobseeker:, job:) = jobseeker.skills & job.required_skills
+
+  def add_recommendation(jobseeker:, job:, matching_skills:)
+    recommendations << Recommendation.new(
+      jobseeker.id,
+      jobseeker.name,
+      job.id,
+      job.title,
+      matching_skills.count,
+      matching_skills.count # TODO: This should be percentage
+    )
   end
 
   def print_recommendations
@@ -43,14 +56,26 @@ class JobRecommendationApp
       csv << csv_header
 
       recommendations.each do |rec|
-        csv << [rec.jobseeker_id, rec.jobseeker_name, rec.job_id, rec.job_title, rec.matching_skill_count,
-                rec.matching_skill_percent]
+        csv << [
+          rec.jobseeker_id,
+          rec.jobseeker_name,
+          rec.job_id,
+          rec.job_title,
+          rec.matching_skill_count,
+          rec.matching_skill_percent
+        ]
       end
     end
 
     puts csv_string
   end
 
-  def csv_header = ['jobseeker id', 'jobseeker name', 'job id', 'job title', 'matching skill count',
-                    'matching skill percent']
+  def csv_header = [
+    'jobseeker id',
+    'jobseeker name',
+    'job id',
+    'job title',
+    'matching skill count',
+    'matching skill percent'
+  ]
 end
