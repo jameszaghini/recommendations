@@ -4,12 +4,12 @@ require 'csv'
 require 'json'
 
 require_relative 'models/job'
-require_relative 'models/job-seeker'
-require_relative 'models/reccomendation'
+require_relative 'models/job_seeker'
+require_relative 'models/recommendation'
 require_relative 'import_service'
 
-class JobReccomendationApp
-  attr_reader :jobs, :job_seekers, :reccomendations
+class JobRecommendationApp
+  attr_reader :jobs, :job_seekers, :recommendations
 
   def initialize
     job_seeker_file_path = 'data/jobseekers.csv'
@@ -18,17 +18,12 @@ class JobReccomendationApp
     @job_seekers = ImportService.import_job_seekers(job_seeker_file_path)
     @jobs = ImportService.import_jobs(job_file_path)
 
-    @reccomendations = []
+    @recommendations = []
 
     find_matches
-    print_reccomendations
   end
 
-  def self.run
-    new
-  end
-
-  # The goal of the engine is to suggest jobs to jobseekers based on their skills and the required skills for each job.
+  def self.run = new
 
   def find_matches
     job_seekers.each do |jobseeker|
@@ -37,17 +32,17 @@ class JobReccomendationApp
 
         next unless matching_skills.any?
 
-        reccomendations << Reccomendation.new(jobseeker.id, jobseeker.name, job.id, job.title, matching_skills.count,
+        recommendations << Recommendation.new(jobseeker.id, jobseeker.name, job.id, job.title, matching_skills.count,
                                               matching_skills.count)
       end
     end
   end
 
-  def print_reccomendations
+  def print_recommendations
     csv_string = CSV.generate do |csv|
       csv << csv_header
 
-      reccomendations.each do |rec|
+      recommendations.each do |rec|
         csv << [rec.jobseeker_id, rec.jobseeker_name, rec.job_id, rec.job_title, rec.matching_skill_count,
                 rec.matching_skill_percent]
       end
