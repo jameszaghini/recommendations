@@ -2,6 +2,8 @@
 
 require 'csv'
 
+require_relative 'models/recommendation'
+
 # Exports an array of Recommendations to CSV
 class RecommendationExporter
   attr_reader :recommendations
