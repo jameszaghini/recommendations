@@ -31,7 +31,7 @@ class RecommendationExporter
       recommendation.job_id,
       recommendation.job_title,
       recommendation.matching_skill_count,
-      recommendation.matching_skill_percent
+      "#{recommendation.matching_skill_percent.round}%"
     ]
   end
 
