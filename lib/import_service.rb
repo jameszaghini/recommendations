@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ImportService
-  def self.import_job_seekers(file_path)
+  def self.import_job_seekers(file_path: 'data/jobseekers.csv')
     job_seekers = []
     CSV.foreach(ROOT + file_path, headers: true) do |row|
       id = row['id']
@@ -12,7 +12,7 @@ class ImportService
     job_seekers
   end
 
-  def self.import_jobs(file_path)
+  def self.import_jobs(file_path: 'data/jobs.csv')
     jobs = []
     CSV.foreach(file_path, headers: true) do |row|
       id = row['id']
