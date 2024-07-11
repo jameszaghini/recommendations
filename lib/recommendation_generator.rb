@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'percentage_helper'
+require_relative 'models/recommendation'
 
 class RecommendationGenerator
   include PercentageHelper
@@ -17,6 +18,8 @@ class RecommendationGenerator
     generate_recommendations
     recommendations
   end
+
+  private
 
   def generate_recommendations
     jobseekers.each do |jobseeker|
