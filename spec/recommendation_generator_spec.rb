@@ -7,7 +7,7 @@ require 'models/job'
 RSpec.describe RecommendationGenerator do
   let(:jobseekers) do
     [
-      JobSeeker.new(1, 'John Doe', %w[Ruby Python]),
+      JobSeeker.new(1, 'John Doe', %w[Ruby Rails Python]),
       JobSeeker.new(2, 'Jane Smith', %w[Java C++]),
     ]
   end
@@ -29,9 +29,9 @@ RSpec.describe RecommendationGenerator do
 
     it 'includes correct recommendation details' do
       recommendations = generator.run
-      expect(recommendations.map(&:jobseeker_id)).to match_array([1, 2])
-      expect(recommendations.map(&:job_id)).to match_array([1, 1])
-      expect(recommendations.map(&:matching_skill_count)).to match_array([1, 1])
+      expect(recommendations.map(&:jobseeker_id)).to match_array([1, 1])
+      expect(recommendations.map(&:job_id)).to match_array([1, 2])
+      expect(recommendations.map(&:matching_skill_count)).to match_array([1, 2])
     end
   end
 end

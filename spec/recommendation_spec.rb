@@ -4,9 +4,9 @@ RSpec.describe Recommendation do
   subject(:recommendation) do
     Recommendation.new(
       1,
-      'Software Engineer',
-      1,
       'John Doe',
+      1,
+      'Software Engineer',
       2,
       50.0
     )
