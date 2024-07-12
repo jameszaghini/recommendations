@@ -8,13 +8,22 @@ require_relative 'recommendation_generator'
 class JobRecommendationApp
   def initialize
     jobseekers = ImportService.import_job_seekers
-    puts 'no jobseekers' and return if jobseekers.empty?
+    if jobseekers.empty?
+      puts 'no jobseekers found'
+      return
+    end
 
     jobs = ImportService.import_jobs
-    puts 'no jobs' and return if jobs.empty?
+    if jobs.empty?
+      puts 'no jobs found'
+      return if jobs.empty?
+    end
 
     recommendations = RecommendationGenerator.new(jobseekers:, jobs:).run
-    puts 'no recommendations' and return if recommendations.empty?
+    if recommendations.empty?
+      puts 'no recommendations made'
+      return if recommendations.empty?
+    end
 
     RecommendationExporter.new(recommendations:).export
   end
