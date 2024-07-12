@@ -39,6 +39,8 @@ Things I should have done but have run out of time
 
 ## Optimisation
 
+I would consider doing one or more of these based on where the bottlenecks are: 
+
 * Use a database to do the matching
 * Use sidekiq to process the files in parallel
 eg half the job seekers processed in one job, the other half in another job then combine results
@@ -51,5 +53,6 @@ eg half the job seekers processed in one job, the other half in another job then
 Use rbs or sorbet to ensure the model objects are created with the correct types
 
 ## Error handling
-I'd use error handling for the files not existing
+
+I'd use more error handling and test accordingly
 
