@@ -9,7 +9,7 @@ class RecommendationGenerator
   attr_reader :jobseekers, :jobs, :recommendations
 
   def initialize(jobseekers:, jobs:)
-    @jobseekers = jobseekers
+    @jobseekers = jobseekers.sort_by(&:id)
     @jobs = jobs
     @recommendations = []
   end

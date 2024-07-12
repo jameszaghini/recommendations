@@ -15,12 +15,21 @@ class RecommendationExporter
     csv_string = CSV.generate do |csv|
       csv << csv_header
 
-      recommendations.each do |recommendation|
+      sorted_recommendations.each do |recommendation|
         csv << csv_row(recommendation:)
       end
     end
 
     puts csv_string
+  end
+
+  def sorted_recommendations
+    recommendations.sort_by do
+      [
+        _1.jobseeker_id,            # sort by jobseeker id ascending
+        -_1.matching_skill_percent  # then, matching skill percentage descending
+      ]
+    end
   end
 
   def csv_row(recommendation:)
